@@ -17,10 +17,10 @@ function Browse() {
   // change route when click button
   function handleChangeRoute(page) {
     if (page === "homepage") {
-      navigate("/");
+      navigate("/MovieDB");
     }
     if (page === "search") {
-      navigate("/search");
+      navigate("search");
     }
   }
   function handleScroll() {

@@ -7,12 +7,10 @@ import Search from "./pages/search/Search";
 
 const router = createBrowserRouter([
   {
-    path: "/MovieDB/",
+    path: "/MovieDB",
     element: <Browse />,
     errorElement: <Error />,
-    children: [
-      { path: "search", element: <Search />, errorElement: <Error /> },
-    ],
+    children: [{ path: "search", element: <Search /> }],
   },
 ]);
 
