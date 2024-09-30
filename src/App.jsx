@@ -10,7 +10,11 @@ const router = createBrowserRouter([
     path: "/MovieDB",
     element: <Browse />,
     errorElement: <Error />,
-    children: [{ path: "search", element: <Search /> }],
+  },
+  {
+    path: "/MovieDB/search",
+    element: <Search />,
+    errorElement: <Error />,
   },
 ]);
 
