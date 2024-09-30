@@ -18,10 +18,10 @@ const Search = () => {
   const navigate = useNavigate();
   function handleChangeRoute(page) {
     if (page === "homepage") {
-      navigate("/");
+      navigate("/MovieDB");
     }
     if (page === "search") {
-      navigate("/search");
+      navigate("/MovieDB/search");
     }
   }
   function handleScroll() {
