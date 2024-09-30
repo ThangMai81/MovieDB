@@ -21,7 +21,7 @@ const Search = () => {
       navigate("/MovieDB");
     }
     if (page === "search") {
-      navigate("/MovieDB/search");
+      navigate("search");
     }
   }
   function handleScroll() {
