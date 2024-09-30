@@ -1,4 +1,4 @@
-function ResultList({ allFilm, isLoading, isError }) {
+function ResultList({ allFilm, isLoading, isError, nameFilm }) {
   const sideEff = "text-white font-bold font-sans text-lg absolute left-50";
   // if some error is happening...
   if (isError === true) {
@@ -12,10 +12,9 @@ function ResultList({ allFilm, isLoading, isError }) {
     );
   }
   // if fetching data is happening...
-  if (isLoading === true) {
-    console.log("Fetching data...");
+  if (isLoading === true && nameFilm.length > 0) {
     return (
-      <div className="relative w-full">
+      <div className="relative w-full left-[45%] top-[250px]">
         <span className={sideEff}>Fetching data...</span>;
       </div>
     );
@@ -32,9 +31,11 @@ function ResultList({ allFilm, isLoading, isError }) {
   }
   return (
     <>
-      <div className="font-bold text-xl text-white absolute top-[400px] left-[50px]">
-        <span className="">Search Results</span>
-      </div>
+      {!isLoading && allFilm.results.length > 0 && (
+        <div className="font-bold text-xl text-white absolute top-[400px] left-[50px]">
+          <span className="">Search Results</span>
+        </div>
+      )}
       <div className="absolute top-[500px] left-[50px] grid grid-cols-6">
         {result}
       </div>

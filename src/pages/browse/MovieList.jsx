@@ -50,7 +50,7 @@ function MovieList({ isLoading, allFilm, error }) {
   // if fetching data is happening...
   if (isLoading === true) {
     return (
-      <div className="relative w-full">
+      <div className="relative w-full left-[45%] top-[1000px]">
         <span className={sideEff}>Fetching data...</span>;
       </div>
     );
@@ -66,21 +66,19 @@ function MovieList({ isLoading, allFilm, error }) {
     "Tài liệu",
   ];
   // function to show details of movie when click movie
-  function handleShowFilmDetail(eachFilm) {
+  function handleShowFilmDetail(eachFilm, eachCategory) {
     const sourceImg = eachFilm.src;
     const res = sourceImg.split("/");
     const linkImg = "/" + res[res.length - 1];
     let clickFilm;
-    allFilm.forEach((eachCategory) => {
-      eachCategory.results.forEach((eachFilm) => {
-        // assume that backdrop images are always different from posters (due to what i think ))
-        if (
-          eachFilm.backdrop_path == linkImg ||
-          eachFilm.poster_path == linkImg
-        ) {
-          clickFilm = eachFilm;
-        }
-      });
+    eachCategory.results.forEach((eachFilm) => {
+      // assume that backdrop images are always different from posters (due to what i think ))
+      if (
+        eachFilm.backdrop_path == linkImg ||
+        eachFilm.poster_path == linkImg
+      ) {
+        clickFilm = eachFilm;
+      }
     });
     // In case have found clickedFilm:
     // set clicked
@@ -138,7 +136,9 @@ function MovieList({ isLoading, allFilm, error }) {
                 <img
                   src={"https://image.tmdb.org/t/p/w500" + eachFilm.poster_path}
                   className="w-[220px] inline-block p-2 cursor-pointer hover:scale-105 ease-in-out duration-300"
-                  onClick={(event) => handleShowFilmDetail(event.target)}
+                  onClick={(event) =>
+                    handleShowFilmDetail(event.target, eachCategory)
+                  }
                 />
               ) : (
                 <img
@@ -147,7 +147,9 @@ function MovieList({ isLoading, allFilm, error }) {
                     "https://image.tmdb.org/t/p/w500" + eachFilm.backdrop_path
                   }`}
                   className="w-[220px] inline-block p-2 cursor-pointer hover:scale-105 ease-in-out duration-300"
-                  onClick={(event) => handleShowFilmDetail(event.target)}
+                  onClick={(event) =>
+                    handleShowFilmDetail(event.target, eachCategory)
+                  }
                 />
               )}
             </div>

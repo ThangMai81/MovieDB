@@ -34,7 +34,7 @@ function MovieDetail({ clickedFilm }) {
   if (isLoading === true) {
     // console.log("Loading...");
     youtubeSec = (
-      <div className="text-white font-bold text-xl">
+      <div className="text-white font-bold text-xl absolute left-[45%]">
         <span>Fetching data, please wait...</span>
       </div>
     );
@@ -42,7 +42,7 @@ function MovieDetail({ clickedFilm }) {
   if (isError === true) {
     console.log("has touched!");
     youtubeSec = (
-      <div className="text-white font-bold text-xl">
+      <div className="text-white font-bold text-xl mt-[40px]">
         <img
           src={"https://image.tmdb.org/t/p/w500" + clickedFilm.backdrop_path}
         />
@@ -50,8 +50,6 @@ function MovieDetail({ clickedFilm }) {
     );
   } else {
     if (isLoading === false && Object.keys(ytb).includes("results")) {
-      // console.log("Show film triggered!");
-      // console.log("Clicked film: ", clickedFilm);
       const opts = {
         height: "400",
         width: "100%",
@@ -60,28 +58,29 @@ function MovieDetail({ clickedFilm }) {
         },
       };
       if (ytb.results.length > 0) {
-        // console.log("ytb: ", ytb);
         const siteYoutubeMV = ytb.results.filter(
           (eachMV) => eachMV.site === "YouTube"
         );
-        // console.log("siteYoutubeMV: ", siteYoutubeMV);
         const trailerYoutubeMV = siteYoutubeMV.filter(
           (eachMV) => eachMV.type === "Trailer"
         );
-        // console.log("check siteYoutubeMV: ", trailerYoutubeMV);
         const teaserYoutubeMV =
           trailerYoutubeMV.length === 0
             ? siteYoutubeMV.filter((eachMV) => eachMV.type === "Teaser")
             : [];
-        // console.log("All MV can be shown: ", teaserYoutubeMV, trailerYoutubeMV);
         if (trailerYoutubeMV.length > 0 || teaserYoutubeMV.length > 0) {
           let firstMVInListKey = "";
           firstMVInListKey =
             teaserYoutubeMV.length > 0
               ? teaserYoutubeMV[0].key
               : trailerYoutubeMV[0].key;
-          // console.log("firstMvInListKey: ", typeof firstMVInListKey);
-          youtubeSec = <Youtube videoId={firstMVInListKey} opts={opts} />;
+          youtubeSec = (
+            <Youtube
+              videoId={firstMVInListKey}
+              opts={opts}
+              className="mt-[40px] mr-[10px]"
+            />
+          );
         } else {
           // If there's video but with type not trailer or teaser, show backdrop_path instead
           youtubeSec = (
@@ -89,6 +88,7 @@ function MovieDetail({ clickedFilm }) {
               src={
                 "https://image.tmdb.org/t/p/w500" + clickedFilm.backdrop_path
               }
+              className="mt-[40px]"
             />
           );
         }
@@ -101,8 +101,7 @@ function MovieDetail({ clickedFilm }) {
       // [[Prototype]]: Array(0)[[Prototype]]: Object
       if (ytb.results.length === 0) {
         youtubeSec = (
-          <div className="text-white font-bold text-xl">
-            <span>There's no video to describe this due to API 😭</span>
+          <div className="text-white font-bold text-xl mt-[40px]">
             <img
               src={
                 "https://image.tmdb.org/t/p/w500" + clickedFilm.backdrop_path
@@ -116,25 +115,27 @@ function MovieDetail({ clickedFilm }) {
   const textStyled = "absolute text-white font-bold text-2xl";
   return (
     <div className="grid grid-cols-2">
-      <div className="relative">
-        {/* This div for border botton */}
-        <h1
-          className={`${textStyled} top-[100px] left-[50px]  border-2 border-black border-b-slate-100 w-[500px] pb-[20px]`}
-        >
-          {clickedFilm.original_title}
-        </h1>
-        <span className={`${textStyled} top-[170px] left-[50px] text-xl`}>
-          Release Date: {clickedFilm.release_date}
-        </span>
-        <span className={`${textStyled} top-[200px] left-[50px] text-xl`}>
-          Vote: {`${clickedFilm.vote_average}/10`}
-        </span>
-        <p
-          className={`${textStyled} top-[230px] left-[50px] font-normal text-sm max-w-[500px]`}
-        >
-          {clickedFilm.overview}
-        </p>
-      </div>
+      {!isLoading && (
+        <div className="relative">
+          {/* This div for border botton */}
+          <h1
+            className={`${textStyled} top-[100px] left-[50px]  border-2 border-black border-b-slate-100 w-[500px] pb-[20px]`}
+          >
+            {clickedFilm.original_title}
+          </h1>
+          <span className={`${textStyled} top-[170px] left-[50px] text-xl`}>
+            Release Date: {clickedFilm.release_date}
+          </span>
+          <span className={`${textStyled} top-[200px] left-[50px] text-xl`}>
+            Vote: {`${clickedFilm.vote_average}/10`}
+          </span>
+          <p
+            className={`${textStyled} top-[230px] left-[50px] font-normal text-sm max-w-[500px]`}
+          >
+            {clickedFilm.overview}
+          </p>
+        </div>
+      )}
       {youtubeSec}
     </div>
   );

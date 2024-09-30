@@ -16,7 +16,7 @@ function Banner({ isLoading, randomFilm, error }) {
   // if fetching data is happening...
   if (isLoading === true) {
     return (
-      <div className="relative w-full">
+      <div className="relative w-full left-[45%]">
         <span className={sideEff}>Fetching data...</span>;
       </div>
     );

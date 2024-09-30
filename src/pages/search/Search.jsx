@@ -9,7 +9,12 @@ const Search = () => {
   const [nameFilm, setNameFilm] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [allFilm, setAllFilm] = useState([]);
+  const [allFilm, setAllFilm] = useState({
+    page: 0,
+    results: [],
+    total_pages: 0,
+    total_results: 0,
+  });
   const navigate = useNavigate();
   function handleChangeRoute(page) {
     if (page === "homepage") {
@@ -41,7 +46,6 @@ const Search = () => {
       async function getData() {
         setIsLoading(true);
         const data = await getSearchMovie(nameFilm);
-        console.log("Data: ", data);
         setAllFilm(data);
         setIsLoading(false);
         setIsError(false);
@@ -62,7 +66,12 @@ const Search = () => {
           OK
         </SearchForm>
       </div>
-      <ResultList allFilm={allFilm} isLoading={isLoading} isError={isError} />
+      <ResultList
+        allFilm={allFilm}
+        isLoading={isLoading}
+        isError={isError}
+        nameFilm={nameFilm}
+      />
     </div>
   );
 };
