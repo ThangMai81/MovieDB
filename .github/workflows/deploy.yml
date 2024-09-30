@@ -1,8 +1,3 @@
-# Workflow file made by [GreeningSiren](https://github.com/GreeningSiren/)
-# Easily deploy react application with GitHub actions
-# This workflow is using NPM as the package manager
-# Make the changes to each of the lines that have a comment on them
-
 name: Build and Deploy
 
 on:
